@@ -1,0 +1,86 @@
+/* ==========================================
+   KUNCI MUTLAK: EFEK SCROLL MULUS
+   ========================================== */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* ==========================================
+   HEADER / NAVBAR (MELAYANG DI ATAS)
+   ========================================== */
+.navbar {
+    position: fixed; /* Kunci header agar selalu di atas */
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    box-sizing: border-box;
+    z-index: 1000;
+    
+    /* Efek Kaca untuk Header */
+    background: rgba(18, 18, 18, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2D8CFF; /* Sama dengan accent color di ekstensimu */
+    letter-spacing: 1px;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 30px;
+}
+
+.navbar nav a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+}
+
+.navbar nav a:hover {
+    color: #ffffff;
+}
+
+/* ==========================================
+   WADAH SECTION (Tinggi 1 Layar Penuh)
+   ========================================== */
+.section {
+    min-height: 100vh; /* Memaksa tiap blok setinggi layar monitor */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px 20px 20px; /* Ruang atas agar teks tidak tertutup header */
+    box-sizing: border-box;
+    
+    /* Garis sementara agar kamu tahu batas tiap blok */
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05); 
+}
+
+.section h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.section p {
+    color: #888;
+}
