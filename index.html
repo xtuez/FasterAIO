@@ -3,41 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fast By Xtuez</title>
+    <title>Faster By Xtuez</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- NAVIGASI ATAS (STICKY) -->
-    <header class="navbar">
-        <div class="logo">Faster By Xtuez</div>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#feature">Feature</a>
-            <a href="#requirement">Requirement</a>
+    <header class="navbar-wrapper">
+        <nav class="glass-dock" id="top-navbar">
+            <div id="nav-indicator"></div>
+            <a href="#home" class="nav-btn active">Home</a>
+            <a href="#feature" class="nav-btn">Feature</a>
+            <a href="#version" class="nav-btn">Version</a>
+            <a href="#requirement" class="nav-btn">Requirement</a>
         </nav>
     </header>
 
-    <!-- WADAH KONTEN -->
     <main>
-        <!-- Section 1: HOME -->
         <section id="home" class="section">
-            <h1>Welcome to Faster</h1>
-            <p>Di sinilah nanti mockup UI ekstensimu akan dipasang secara melayang.</p>
+            <h1 class="main-title">Fast By Xtuez</h1>
+            <p class="subtitle">make your edit more faster</p>
         </section>
 
-        <!-- Section 2: FEATURE -->
         <section id="feature" class="section">
-            <h1>Features</h1>
-            <p>Penjelasan fitur GPU Saver, UI Animasi Squeeze, dan lainnya.</p>
+            <h2>Feature Showcase</h2>
+            </section>
+
+        <section id="version" class="section">
+            <h2>Version History</h2>
         </section>
 
-        <!-- Section 3: REQUIREMENT -->
         <section id="requirement" class="section">
-            <h1>System Requirements</h1>
-            <p>Spesifikasi minimal After Effects dan OS untuk menjalankan ekstensi ini.</p>
+            <h2>System Requirements</h2>
         </section>
     </main>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll(".section");
+            const navBtns = document.querySelectorAll(".nav-btn");
+            const indicator = document.getElementById("nav-indicator");
+
+            // Fungsi memindahkan kotak biru persis ke kordinat tombol
+            function moveIndicator(targetBtn) {
+                if (!targetBtn) return;
+                indicator.style.width = targetBtn.offsetWidth + "px";
+                indicator.style.height = targetBtn.offsetHeight + "px";
+                indicator.style.left = targetBtn.offsetLeft + "px";
+                indicator.style.top = targetBtn.offsetTop + "px";
+            }
+
+            // Injeksi posisi pertama kali web dibuka
+            const initialActive = document.querySelector(".nav-btn.active") || navBtns[0];
+            setTimeout(() => moveIndicator(initialActive), 50);
+
+            // Logika Klik Manual
+            navBtns.forEach(btn => {
+                btn.addEventListener("click", function(e) {
+                    navBtns.forEach(b => b.classList.remove("active"));
+                    this.classList.add("active");
+                    moveIndicator(this);
+                });
+            });
+
+            // Logika Sensor Layar (Scroll Spy)
+            window.addEventListener("scroll", () => {
+                let currentSection = "";
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    // Deteksi jika layar sudah melewati batas atas section
+                    if (window.scrollY >= (sectionTop - 250)) {
+                        currentSection = section.getAttribute("id");
+                    }
+                });
+
+                navBtns.forEach(btn => {
+                    btn.classList.remove("active");
+                    if (currentSection && btn.getAttribute("href").includes(currentSection)) {
+                        btn.classList.add("active");
+                        moveIndicator(btn);
+                    }
+                });
+            });
+
+            // Pengaman agar kotak biru tidak meleset saat layar di-resize
+            window.addEventListener("resize", () => {
+                const activeBtn = document.querySelector(".nav-btn.active");
+                indicator.style.transition = "none"; 
+                moveIndicator(activeBtn);
+                setTimeout(() => indicator.style.transition = "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)", 50);
+            });
+        });
+    </script>
 </body>
 </html>
