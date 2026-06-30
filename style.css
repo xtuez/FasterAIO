@@ -109,3 +109,159 @@ body {
     font-weight: 300;
     letter-spacing: 0.5px;
 }
+/* ==========================================
+   FEATURE: GRAPH EDITOR DEMO
+   ========================================== */
+.feature-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    max-width: 900px;
+}
+
+/* --- KIRI: TRACK & BOLA --- */
+.demo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.demo-track {
+    width: 350px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    position: relative;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.demo-ball {
+    width: 40px;
+    height: 40px;
+    background: #2D8CFF;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    box-shadow: 0 5px 15px rgba(45, 140, 255, 0.5);
+    /* Transform awal */
+    transform: translateX(0);
+}
+
+.demo-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #888;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* --- KANAN: GRAPH UI (GLASSMORPHISM) --- */
+.glass-panel {
+    background: rgba(30, 30, 30, 0.4);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    width: 260px;
+}
+
+.graph-canvas-box {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 20px;
+}
+
+.graph-pill-nav {
+    display: flex;
+    position: relative;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Indikator putih belakang ikon aktif */
+#graph-nav-indicator {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    transition: left 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+}
+
+.g-cat-pill {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.g-cat-pill.active {
+    opacity: 1;
+}
+
+.demo-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: #2D8CFF;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.demo-btn:active {
+    transform: scale(0.95);
+}
+
+/* ==========================================
+   ANIMASI BOLA BERDASARKAN MODE
+   ========================================== */
+/* Mode 0: Bezier Normal (Ease In Out) */
+.anim-bezier {
+    transition: transform 1s cubic-bezier(0.25, 0.1, 0.25, 1.0) !important;
+    transform: translateX(290px); /* 350 track - 40 ball - 20 padding */
+}
+
+/* Mode 2: Elastic (Overshoot Apple Fluid) */
+.anim-elastic {
+    transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    transform: translateX(290px);
+}
+
+/* Mode 1: Bounce (Perlu CSS Keyframes) */
+.anim-bounce {
+    animation: ballBounce 1s forwards;
+}
+
+@keyframes ballBounce {
+    0% { transform: translateX(0); }
+    30% { transform: translateX(290px); animation-timing-function: ease-out; }
+    50% { transform: translateX(230px); animation-timing-function: ease-in; }
+    70% { transform: translateX(290px); animation-timing-function: ease-out; }
+    85% { transform: translateX(270px); animation-timing-function: ease-in; }
+    100% { transform: translateX(290px); }
+}
